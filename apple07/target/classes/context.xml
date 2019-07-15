@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<!-- annotation방식으로 해도 되고 @Repository or 현재와 같이 설정을 통해서 -->
+<bean id="tv" class="com.itbank.mvc07.CherryTv"></bean>
+<!-- 
+<bean id="tv" class="com.itbank.mvc07.AppleTv"></bean>
+이와같이 한번만 바꾸는 식으로 바뀜
+ -->
+
+
+</beans>
