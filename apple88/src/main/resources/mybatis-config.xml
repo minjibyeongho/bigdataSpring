@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+	<!-- 전체 mapper 파일 관리해주는 것 -->
+
+	<!-- <properties resource="db.properties" /> -->
+	<!-- alias는 별명으로 닉네임 지정하여 그 경로를 사용하는 것으로 생각 -->
+	<typeAliases>
+		<!-- <typeAlias type="com.itbank.mvc88.BbsDTO" alias="bbsDto"></typeAlias> -->
+		<typeAlias type="com.itbank.mvc88.MemberDTO" alias="mDTO"></typeAlias>
+		<typeAlias type="com.itbank.mvc88.BbsDTO" alias="bDTO"></typeAlias>
+	</typeAliases>
+	<!-- <environments default="development">
+		<environment id="development">
+			<transactionManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="${jdbc.driverClassName}" />
+				<property name="url" value="${jdbc.url}" />
+				<property name="username" value="${jdbc.username}" />
+				<property name="password" value="${jdbc.password}" />
+			</dataSource>
+		</environment>
+	</environments> -->
+	<mappers>
+		<mapper resource="mapper/memberMapper.xml" />
+		<mapper resource="mapper/BbsMapper.xml" />
+	</mappers>
+	
+	<!-- 주석처리한 것은 지워야함( context에서 설정했기 때문에 ) -->
+</configuration>
