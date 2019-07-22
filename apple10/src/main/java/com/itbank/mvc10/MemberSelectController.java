@@ -15,9 +15,13 @@ public class MemberSelectController {
 //	@Qualifier("dao1")	// Qualifier는 dao1이라는 이름으로 한번더 검색하는 기능(dao라는 이름이 여러개 있을 때)
 	MemberDAO dao;
 	
+	@Autowired
+	ReplyDAO dao2;
+	
 	@RequestMapping("select.do")
 	public void select(MemberDTO memberDTO, Model model) {
 		MemberDTO dto = dao.select(memberDTO);
+		List<ReplyDTO> list = dao2.select(memberDTO);
 		model.addAttribute("dto", dto);
 	}
 	

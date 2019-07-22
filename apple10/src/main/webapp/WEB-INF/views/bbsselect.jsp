@@ -14,46 +14,36 @@
 	
 	$(function(){
 		
-		
-		var id = document.id.value
-		var content = document.content.value
-		var writer = document.writer.value
-		
-		if(id == null || content == null || writer == null){
-			return;
-		}
-		
 		$("#btn1").click(function(){
-			//ajax 실행
 			
+			var d = $("#comment").serialize();
 			$.ajax({
-				url : "bbsselect.do",
-				data : {
-					"id" : id,
-					"content" : content,
-					"writer" : writer
-				},
-				success: function(){
-					alert("ajax 실행 완료")
-				}
-			});	//ajax end
-		});	//click end
-	});	//Jquery end
+				url: "comment.do",
+				data: d,
+				success: function(result){
+					alert("ajax 통신 완료!");
+					alert(result);
+					$("#datgle").append(result);
+					
+				}	//Success End
+			})	//Ajax End
+		})	//button End
+	})	//JQuery End
+		
 
 </script>
 </head>
 <body>
-
 	<h1>bbs select 페이지</h1>
 	
-	<table>
-		<tr>
+	<table border="1" bordercolor="blue">
+		<tr bordercolor="skyblue">
 			<th width="100">아이디</th>
 			<th width="100">제목</th>
 			<th width="100">내용</th>
 			<th width="100">작가</th>
 		</tr>
-		<tr>
+		<tr bordercolor="red">
 			<td>${bdto.id }</td>
 			<td>${bdto.title }</td>
 			<td>${bdto.content }</td>
@@ -61,18 +51,19 @@
 		</tr>
 	</table>
 	<hr color="green">
-			작성자 : <input type="text" id="writer"><br>
-			입력  : <input width="300" type="text" id="content">
-			<input type="hidden" id="id" value="${bdto.id}"><br>
+		<form id="comment">
+			작성자 : <input type="text" name="writer"><br>
+			입력  : <input width="300" type="text" name="content">
+			<input type="hidden" name="id" value="${bdto.id}">
 			<button type="button" id="btn1">댓글달기</button>
-		
+		</form>
 	<hr color="green">
-	<ol>
+	<ul>
 		<c:forEach var="cdto" items="${clist}">
-		<li>${cdto.writer} : ${cdto.content}</li>
+			<li type="none"><img src="resources/datgle.png" width="50" height="50">${cdto.writer } : ${cdto.content }</li>
 		</c:forEach>
-		
-	</ol>
+		<li type="none" id="datgle"></li>
+	</ul>
 
 </body>
 </html>

@@ -4,14 +4,11 @@
 
 <mapper namespace="cDAO">
 
-<!-- 	<select id="getSomething" parameterType="int" resultType="#package.#modelname">
-		SELECT
-		columnname1,
-		columnname2,
-		columnname3
-		FROM tablename1
-		WHERE columnname1 = #{value}
-	</select> -->
+ 	<select id="select" parameterType="cDTO" resultMap="rsMap">
+		SELECT *
+		FROM mycomment
+		WHERE id = #{id}
+	</select>
 
 	<resultMap type="cDTO" id="rsMap">
 		<result property="id" column="id" />
@@ -19,7 +16,11 @@
 		<result property="writer" column="writer" />
 	</resultMap>
 
-	<select id="selectAll" resultMap="rsMap">
+	<select id="selectAll" resultMap="rsMap" parameterType="String">
+		SELECT * FROM mycomment where id = #{id}
+	</select>
+	
+	<select id="selectAll2" resultMap="rsMap">
 		SELECT * FROM mycomment
 	</select>
 

@@ -13,15 +13,19 @@ public class myCommentDAO {
 	@Autowired
 	SqlSessionTemplate my;
 	
-	@RequestMapping("cominsert.do")
 	public void insert(myCommentDTO mycommentDTO){
 		my.insert("cDAO.insert",mycommentDTO);
 		System.out.println("댓글 입력!");
 	}
 	
-	public List<myCommentDTO> selectAll(){
-		List<myCommentDTO> list =  my.selectList("cDAO.selectAll");
-		return list;
+	public List<myCommentDTO> selectAll(String id){
+		System.out.println("cDAO selectAll!");
+		return my.selectList("cDAO.selectAll", id);
+	}
+	
+	public List<myCommentDTO> selectAll2(){
+		System.out.println("cDAO selectAll!");
+		return my.selectList("cDAO.selectAll2");
 	}
 	
 }

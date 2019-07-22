@@ -11,20 +11,31 @@
 </head>
 <body>
 
-<!-- 표현식으로 -->
-<%
-	List<BbsDTO> list = (List)request.getAttribute("blist");
-	
-	for(BbsDTO bbdto : list){
-		%>
-			<hr size="2" color="red">
-			아이디 : <a href="bbsselect.do?id=<%=bbdto.getId() %>"><%= bbdto.getId() %></a><br>
-			제목 : <%= bbdto.getTitle() %><br>
-			내용 : <%= bbdto.getContent() %><br>
-			작가 : <%= bbdto.getWriter() %><br>
-		<%
-	}
-%>
+	<!-- 표현식으로 -->
+	<%
+		List<BbsDTO> list = (List) request.getAttribute("blist");
+
+		for (BbsDTO bbdto : list) {
+	%>
+	<hr size="2" color="red">
+	아이디 :
+	<a href="bbsselect.do?id=<%=bbdto.getId()%>"><%=bbdto.getId()%></a>
+	<br> 제목 : <%=bbdto.getTitle()%><br> 
+	내용 : <%=bbdto.getContent()%><br> 
+	작가 : <%=bbdto.getWriter()%><br>
+	<%
+		}
+	%>
+	<hr size="3" color="blue">
+	전체 댓글>>
+	<br>
+	<j:forEach var="cdto" items="${clist}">
+		<img src="resources/datgle.png" width="50" height="50"> ${cdto.writer } : ${cdto.content }<br>
+	</j:forEach>
+
+	<hr size="3" color="blue">
+
+
 
 	<j:forEach var="bdto" items="${blist}">
 		<hr size="4" color="blue">

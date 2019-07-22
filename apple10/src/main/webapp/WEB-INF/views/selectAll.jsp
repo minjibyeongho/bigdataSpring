@@ -18,7 +18,7 @@
 	for(MemberDTO dto : list){
 		%>
 			<hr color="blue">
-			아이디 : <%= dto.getId() %><br>
+			아이디 : <a href="select.do?id=<%= dto.getId() %>"><%= dto.getId() %></a><br>
 			패스워드 : <%=dto.getPw() %><br>
 			이름 : <%= dto.getName() %><br>
 			전화번호 : <%= dto.getTel() %><br>

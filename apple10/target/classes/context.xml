@@ -34,8 +34,4 @@
 	<property name="password" value="${jdbc.pw}"></property>
 	
 </bean>
-
-
-
-
 </beans>

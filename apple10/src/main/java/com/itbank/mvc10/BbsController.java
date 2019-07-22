@@ -22,30 +22,25 @@ public class BbsController {
 	}
 	
 	@RequestMapping("bbsselect.do")
-	public void select(myCommentDTO mycommentDTO, Model model) {
-		cdao.insert(mycommentDTO);
-		System.out.println("댓글 등록!");
-		
-		BbsDTO bbsDTO = new BbsDTO();
-		bbsDTO.setId(mycommentDTO.getId());
+	public void select(BbsDTO bbsDTO, Model model) {
 		BbsDTO dto = dao.select(bbsDTO);
-		
-		List<myCommentDTO> list = cdao.selectAll();
-		
 		model.addAttribute("bdto", dto);
-		model.addAttribute("clist", list);
+		List<myCommentDTO> list = cdao.selectAll(bbsDTO.getId());
+		model.addAttribute("clist",list);
+		
 	}
 	
 	@RequestMapping("bbsselectAll.do")
 	public void selectAll(Model model){
 		model.addAttribute("blist", dao.selectAll());
+		model.addAttribute("clist",	cdao.selectAll2());
 	}
 	
-	@RequestMapping("comInsert.do")
+	@RequestMapping("comment.do")
 	public void commentInsert(myCommentDTO mycommentDTO, Model model){
 		cdao.insert(mycommentDTO);
 		System.out.println("댓글 등록");
+		model.addAttribute("cdto",mycommentDTO);
 	}
-	
 	
 }
