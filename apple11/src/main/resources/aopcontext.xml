@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd">
+
+<!-- 태그 : Element(요소) -->
+<!-- Empty Element(빈 요소) : <br>, <hr> 등 -->
+<!-- <context:component-scan base-package=""></context:component-scan> -->
+<!-- base-package경로를 다 훑어서 와라 -->
+<context:component-scan base-package="com.itbank.mvc11"/>	<!-- 위의 것과 같은 것 -->
+<bean id="aspect" class="com.itbank.mvc11.AspectClass"></bean>
+<bean id="c" class="com.itbank.mvc11.CSite"></bean>
+
+<aop:config>
+	<!-- 끼워넣을 위치 검색(핵심 메소드) : pointcut 태그 -->
+	<aop:pointcut expression="execution(* com.itbank.mvc11.ASite.person*(..))" id="person"/>
+	<aop:aspect ref="aspect">
+		<aop:before method="login2" pointcut-ref="person"/>
+		<aop:after method="logout" pointcut-ref="person"/>
+	</aop:aspect>
+</aop:config>
+
+<aop:config>
+	<aop:pointcut expression="execution(* com.itbank.mvc11.CSite.order*(..))" id="Order"/>
+	<aop:aspect ref="aspect">
+		<aop:before method="login" pointcut-ref="Order"/>
+		<aop:after method="logout" pointcut-ref="Order"/>
+	</aop:aspect>
+</aop:config>
+
+<aop:config>
+	<aop:pointcut expression="execution(* com.itbank.mvc11.BSite.productOrder*(..))" id="productOrder"/>
+	<aop:aspect ref="aspect">
+		<aop:before method="login" pointcut-ref="productOrder"/>
+		<aop:after method="logout" pointcut-ref="productOrder"/>
+	</aop:aspect>
+</aop:config>
+
+<!-- aop:config 태그 안에서 한번에 작성해도 상관 없음 -->
+<aop:config>
+	<aop:pointcut expression="execution(* com.itbank.mvc11.BSiteImp.productF*(..))" id="find"/>
+	<aop:pointcut expression="execution(* com.itbank.mvc11.BSiteImp.basket*(..))" id="basket"/>
+	<aop:pointcut expression="execution(* com.itbank.mvc11.BSiteImp.productO*(..))" id="order"/>
+	<aop:aspect ref="aspect">
+		<!-- <aop:before method="login" pointcut-ref="order"/>
+		<aop:after method="logout" pointcut-ref="order"/> -->
+		<aop:after-returning 
+		method="returnCall" 
+		pointcut-ref="find"
+		returning="returnObj"	
+		/>
+		<!-- return 값을 보내줌 지정한 이름으로 -->
+		<aop:after-throwing method="errorCall" pointcut-ref="basket"/>
+		<aop:around method="aroundCall" pointcut-ref="order"/>
+	</aop:aspect>
+</aop:config>
+
+
+
+
+
+
+
+
+</beans>

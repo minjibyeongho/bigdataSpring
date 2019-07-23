@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd">
+
+<context:component-scan base-package="com.itbank.flower"></context:component-scan>
+<bean id="aspect" class="com.itbank.flower.AspectClass"></bean>
+
+<aop:config>
+	<aop:pointcut expression="execution(* com.itbank.flower.Flower.member*(..))" id="member"/>
+	<aop:pointcut expression="execution(* com.itbank.flower.Flower.buy*(..))" id="buy"/>
+	<aop:pointcut expression="execution(* com.itbank.flower.Flower.iDonknow*(..))" id="donknow"/>
+	<aop:pointcut expression="execution(* com.itbank.flower.Flower.welcome*(..))" id="welcom"/>
+	<aop:pointcut expression="execution(* com.itbank.flower.Flower.explorer*(..))" id="ex"/>
+	<aop:aspect ref="aspect">
+		<aop:before	method="greed"	pointcut-ref="welcom"/>
+		<aop:after-throwing method="errorCall" pointcut-ref="donknow"/>
+		<aop:around method="aroundCall" pointcut-ref="ex"/>
+		
+	</aop:aspect>
+</aop:config>
+
+</beans>
